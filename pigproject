@@ -1,0 +1,69 @@
+import random 
+
+def roll():
+    min_val = 1 
+    max_val = 6
+
+    roll = random.randint(min_val, max_val)
+
+    return roll
+
+
+while True:
+
+    players = input("Enter the number of players (2-4): ")
+    if players.isdigit():
+        players = int(players)
+        if 2 <= players <= 4:
+            break
+
+        else:
+            print("The number of players is not in acceptable range (2-4) \n")
+
+    else:
+        print("You did NOT enter a whole number. Please try again! \n")
+
+
+max_score = 15
+player_scores = [0 for _ in range(players)] # List comprehension
+
+while max(player_scores) < max_score:
+
+    for i in range(players):
+        print(f"\nPlayer number: {i+1}, it's your turn! \n")
+        print(f"\nYour total score is: {player_scores[i]} \n")
+
+        current_score = 0
+        while True:
+
+            should_roll = input("Would you like to roll (y)?")
+
+            if should_roll.lower() != "y":
+                print("You have choosen NOT to roll the dice! \n")
+                break
+            else:
+                value = roll()
+
+            if value == 1:
+                print("You rolled a 1 which concludes your turn!")
+                break
+            else:
+                current_score += value
+                print(f"You rolled a: {value}")
+            
+            print(f"Your current score is: {current_score}")
+
+        player_scores[i] += current_score
+        print(f"\nPlayer number: {i+1}, your total score is: {player_scores[i]}\n")
+
+max_score = max(player_scores)
+winning_index = player_scores.index(max_score)
+
+print(f"Player number {winning_index + 1} has won with a score of: {max_score}!")
+
+# print(player_scores)
+# print("The number of players you have selected to play is: " + str(players))
+
+# value = roll()
+
+# print("You rolled a " + str(value))
